@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page de Connexion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2; /* Couleur de fond */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            width: 1000px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<form method="POST" action="/login">
+    <h1>Bonjour M.{{ session['user']['nom'] }} et bienvenue sur votre espace</h1>
+    <h2 style="text-align: center;">Page de Connexion</h2>
+    <label for="code">Entrer le code d'acces fourni par le superviseur :</label>
+    <input type="text" id="code" name="code" required><br><br>
+
+    <input type="submit" value="Se Connecter au CNED">
+    <!-- Affichage du message d'erreur, s'il y en a un -->
+    {% if message %}
+    <p class="error-message">{{ message }}</p>
+    {% endif %}
+</form>
+
+<!-- Bouton de logout -->
+<a href="/logout" class="logout-btn">Se Déconnecter</a>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tableau de Bord Avancé</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .btn {
+        padding: 8px 12px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Tableau de Bord Avancé</h1>
+        <div>
+            <a href="#" class="btn"><i class="fas fa-user"></i> Nombre d'élèves</a>
+            <a href="#" class="btn"><i class="fas fa-history"></i> Historique de Connexion</a>
+            <a href="#" class="btn"><i class="fas fa-user-plus"></i> Ajouter un Élève</a>
+            <a href="#" class="btn"><i class="fas fa-user-minus"></i> Supprimer un Élève</a>
+            <input type="text" placeholder="Rechercher un Élève..." style="padding: 5px; margin-left: 10px;">
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Âge</th>
+                <th>Dernière Connexion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Smith</td>
+                <td>John</td>
+                <td>25</td>
+                <td>2024-03-23 10:30 AM</td>
+            </tr>
+            <!-- Ajoutez d'autres lignes pour plus d'élèves -->
+        </tbody>
+    </table>
+
+    <!-- Intégrer des graphiques ou d'autres éléments interactifs ici -->
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+<!-- Intégrer des scripts JavaScript pour les fonctionnalités avancées -->
+
+</body>
+</html>
