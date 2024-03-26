@@ -1,84 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page de Connexion</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2; /* Couleur de fond */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        form {
-            width: 1000px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: white;
-        }
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-        .error-message {
-            color: red;
-            margin-top: 10px;
-        }
-        .logout-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-top: 20px;
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-        }
-        .logout-btn:hover {
-            background-color: #c82333;
-        }
-    </style>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/CSS/login.css">
+        <title>Page de Connexion</title>
+        <style>
+            
+        </style>
+    </head>
+    <body>
 
-<form method="POST" action="/login">
-    <h1>Bonjour M.{{ session['user']['nom'] }} et bienvenue sur votre espace</h1>
-    <h2 style="text-align: center;">Page de Connexion</h2>
-    <label for="code">Entrer le code d'acces fourni par le superviseur :</label>
-    <input type="text" id="code" name="code" required><br><br>
+        <div class="container">
+            <div class="login-box">
+                <h2>Bonjour M.{{ session['user']['nom'] }}</h2>
+                <form method="POST" action="/login">
+                    <div class="input-box">
+                        <input type="text" id="code" name="code" required>
+                        <label for="code">Code d'accès</label>
+                    </div>            
+                    <!-- Affichage du message d'erreur, s'il y en a un -->
+                    <div class="message-error">
+                        {% if message %}
+                        <p class="error-message">Error {{ message }}</p>
+                        {% endif %}                    
+                    </div>
+                    <!-- Bouton de logout -->
+                    <button type="submit" class="btn">Se Connecter au CNED</button>
+                    <div class="logout-btn">
+                        <a href="/logout" >Se Déconnecter</a>
+                    </div>
+                </form>
+    
+            </div>
+            <span style="--i:0;"></span>
+            <span style="--i:1;"></span>
+            <span style="--i:2;"></span>
+            <span style="--i:3;"></span>
+            <span style="--i:4;"></span>
+            <span style="--i:5;"></span>
+            <span style="--i:6;"></span>
+            <span style="--i:7;"></span>
+            <span style="--i:8;"></span>
+            <span style="--i:9;"></span>
+            <span style="--i:10;"></span>
+            <span style="--i:11;"></span>
+            <span style="--i:12;"></span>
+            <span style="--i:13;"></span>
+            <span style="--i:14;"></span>
+            <span style="--i:15;"></span>
+            <span style="--i:16;"></span>
+            <span style="--i:17;"></span>
+            <span style="--i:18;"></span>
+            <span style="--i:19;"></span>
+            <span style="--i:20;"></span>
+            <span style="--i:21;"></span>
+            <span style="--i:22;"></span>
+            <span style="--i:23;"></span>
+            <span style="--i:24;"></span>
+            <span style="--i:25;"></span>
+            <span style="--i:26;"></span>
+            <span style="--i:27;"></span>
+            <span style="--i:28;"></span>
+            <span style="--i:29;"></span>
+            <span style="--i:30;"></span>
+            <span style="--i:31;"></span>
+            <span style="--i:32;"></span>
+            <span style="--i:33;"></span>
+            <span style="--i:34;"></span>
+            <span style="--i:35;"></span>
+            <span style="--i:36;"></span>
+            <span style="--i:37;"></span>
+            <span style="--i:38;"></span>
+            <span style="--i:39;"></span>
+            <span style="--i:40;"></span>
+            <span style="--i:41;"></span>
+            <span style="--i:42;"></span>
+            <span style="--i:43;"></span>
+            <span style="--i:44;"></span>
+            <span style="--i:45;"></span>
+            <span style="--i:46;"></span>
+            <span style="--i:47;"></span>
+            <span style="--i:48;"></span>
+            <span style="--i:49;"></span>
+        </div>
 
-    <input type="submit" value="Se Connecter au CNED">
-    <!-- Affichage du message d'erreur, s'il y en a un -->
-    {% if message %}
-    <p class="error-message">{{ message }}</p>
-    {% endif %}
-</form>
-
-<!-- Bouton de logout -->
-<a href="/logout" class="logout-btn">Se Déconnecter</a>
-
-</body>
+    </body>
 </html>
