@@ -1,59 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur de Code</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2; /* Couleur de fond */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+    form {
+        margin: 75px auto;
+        max-width: 600px;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 3px 7.5px rgba(0, 0, 0, 0.1);
+        animation: slideIn 0.5s ease forwards;
+    }
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
         }
-        form {
-            width: 300px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: white;
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+    }
+    h1 {
+        text-align: center;
+        font-size: 1.5em;
+        margin-bottom: 30px;
+        animation: fadeIn 0.5s ease forwards;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
         }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
+        to {
+            opacity: 1;
         }
-        .code-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
+    }
+    input[type="submit"] {
+        width: 100%;
+        padding: 15px;
+        font-size: 24px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 30px;
+        transition: background-color 0.3s ease;
+    }
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    .code-container {
+        margin-bottom: 30px;
+        text-align: center;
+        animation: fadeIn 0.5s ease forwards;
+    }
+    .code-container p {
+        font-size: 27px;
+        margin: 0;
+    }
+    .code-container strong {
+        font-weight: bold;
+        color: #007bff;
+        font-size: 30px;
+    }
+    .back-button {
+        display: flex;
+        justify-content: center;
+        animation: fadeIn 0.5s ease forwards;
+    }
+    .back-button button {
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .back-button button:hover {
+        background-color: #0056b3;
+    }
+</style>
 </head>
 <body>
 
-<form method="POST" action="/generate_code">
-    <h2 style="text-align: center;">Générateur de Code</h2>
+<h1>Générateur de Code</h1>
 
-    <input type="submit" value="Générer le Code">
-
-    <!-- Affichage du code généré -->
+<form method="POST" action="/generate_code">    
+     <!-- Affichage du code généré  -->
     <div class="code-container">
-        {% if code %}
-        <p>Code généré : <strong>{{ code }}</strong></p>
-        {% endif %}
+        <p>
+            Code généré : 
+            <strong>
+                {% if code %}
+                {{ code }}
+                {% endif %}
+            </strong>
+        </p>
     </div>
+    <input type="submit" value="Générer le Code">
 </form>
 
-</body>
-</html>
+{% endblock %}
+

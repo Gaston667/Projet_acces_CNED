@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informations de l'élève</title>
+    <style>
+        /* Styles CSS pour la mise en page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Informations de l'élève</h1>
+        <table>
+            <tr>
+                <th>Matricule</th>
+                <td id="matricule">{{ eleve['matricule'] }}</td>
+            </tr>
+            <tr>
+                <th>Mot de passe</th>
+                <td id="mot_de_passe">{{ eleve['mot_de_passe'] }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td id="nom">{{ eleve['nom'] }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td id="prenom">{{ eleve['prenom'] }}</td>
+            </tr>
+            <tr>
+                <th>Classe</th>
+                <td id="classe">{{ eleve['classe'] }}</td>
+            </tr>
+            <tr>
+                <th>Identifiant CNED:</th>
+                <td id="identifiant_CNED">{{ eleve['identifiant_CNED'] }}</td>
+            </tr>
+            <tr>
+                <th>Mot de passe CNED:</th>
+                <td id="mot_de_passe_CNED">{{ eleve['mot_de_passe_CNED'] }}</td>
+            </tr>
+            <!-- Ajoutez d'autres informations de l'élève ici -->
+        </table>
+        <form id="delete_form" action="/suppression_eleve" method="POST">
+            <input type="hidden" name="matricule" value="{{ eleve['matricule'] }}">
+            <button type="button" onclick="retour()" class="btn">Retour</button>
+            <button style="background: rgba(212, 23, 23, 0.819);" type="button" onclick="confirmDeletion()" class="btn">Supprimer l'élève</button>
+        </form>
+    </div>
+
+    <script>
+        function confirmDeletion() {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cet élève?")) {
+                document.getElementById("delete_form").submit();
+            }
+        }
+        function retour() {
+        // Redirection vers la route souhaitée
+        window.history.back();
+}
+
+    </script>
+</body>
+</html>

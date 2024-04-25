@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+/* Styles pour la mise en page */
+<style>
+.list-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.list-container ul{
+    list-style: none;
+}
+
+.result-container {
+    background-color: #FFF;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.result-container a {
+    text-decoration: none;
+    color: #333;
+}
+
+.result-container:hover {
+    background-color: #e0e0e0;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.label {
+    font-weight: bold;
+}
+
+</style>
+<div class="list-container">
+    {% if students %}
+        {% if students|length == 0 %}
+            <p>Aucun élève ne correspond à la recherche.</p>
+        {% else %}
+            <h2>Liste des élèves:</h2><br>
+            <ol>
+                {% for student in students %}
+                    <div class="result-container">
+                        <a href="/info_eleve/{{ student[0] }}"><li>
+                            <span class="label">Matricule:</span> {{ student[0] }} <br><br>
+                            <span class="label">Nom:</span> {{ student[4] }} {{ student[5] }} <br><br>
+                            <span class="label">Classe:</span> {{ student[6] }}
+                        </li></a>
+                    </div>
+                {% endfor %}
+            </ol>
+        {% endif %}
+    {% else %}
+        <p>Aucun élève trouvé dans la base de données.</p>
+    {% endif %}
+</div>
+<script>
+    // Optionnel : Ajoutez du JavaScript pour ajouter des fonctionnalités dynamiques à votre page
+// Par exemple, vous pouvez ajouter des animations ou du comportement interactif avec JavaScript.
+// Voici un exemple simple d'animation lorsque l'utilisateur survole un élément de résultat :
+document.querySelectorAll('.result-container').forEach(container => {
+    container.addEventListener('mouseenter', () => {
+        container.style.boxShadow = '0px 0px 5px 0px rgba(0,0,0,0.5)';
+        container.style.transform = 'scale(1.01)';
+        container.style.transition = 'all 0.3s ease-in-out';
+    });
+
+    container.addEventListener('mouseleave', () => {
+        container.style.boxShadow = 'none';
+        container.style.transform = 'scale(1)';
+    });
+});
+
+</script>
+{% endblock %}

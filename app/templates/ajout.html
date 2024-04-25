@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    a {
+        text-decoration: none;
+        color: black;
+        font-size: 1em;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .form-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    .form-container h2 {
+        margin-top: 0;
+    }
+    .form-container form {
+        margin-top: 20px;
+    }
+    .form-container label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .form-container input[type="text"],
+    .form-container input[type="password"],
+    .form-container select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    .form-container input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .form-container input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    .search-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+    }
+    .search-container input[type="text"] {
+        width: 70%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    .search-container input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .search-container input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    .list-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+    .result-container {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        margin-bottom: 10px;
+    }
+    .label {
+        font-weight: bold;
+    }
+</style>
+<div class="container">
+    <h1>Bienvenue sur votre tableau de bord</h1>
+    <div class="form-container">
+        <h2>Ajouter ou Rechercher un Élève</h2>
+        {% if success %}
+        <!-- Afficher la popup -->
+        <div id="popup-overlay" class="popup">
+            <div class="popup-content">
+                <h2>Message :</h2>
+                <p>{{ success }}</p>
+                <a href="javascript:void(0)" class="popup-exit">OK</a>
+            </div>
+        </div>
+        <style>
+            /* Styles CSS pour la popup */
+            .popup {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+                opacity: 0; /* Initiallement invisible */
+                transition: opacity 0.3s ease; /* Transition fluide */
+            }
+    
+            .popup-content {
+                background-color: #fff;
+                padding: 30px;
+                border-radius: 10px;
+                text-align: center;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Ombre légère */
+                opacity: 0;
+                transform: translateY(-50px); /* Animation de descente */
+                transition: opacity 0.3s ease, transform 0.3s ease; /* Transition fluide */
+            }
+    
+            .popup-content h2 {
+                margin-top: 0;
+            }
+    
+            .popup-content p {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+    
+            .popup.active {
+                opacity: 1; /* Rendre la popup visible */
+            }
+    
+            .popup.active .popup-content {
+                opacity: 1;
+                transform: translateY(0); /* Animation d'ascension */
+            }
+    
+            .popup-exit {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: #fff;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s ease; /* Transition de couleur fluide */
+            }
+    
+            .popup-exit:hover {
+                background-color: #0056b3; /* Changement de couleur au survol */
+            }
+        </style>
+        <script>
+            // Afficher la popup lorsque la page se charge
+            window.onload = function() {
+                document.getElementById('popup-overlay').classList.add('active');
+            }
+    
+            // Fonction pour fermer la popup lorsque l'utilisateur clique sur le bouton "OK"
+            var exitBtn = document.getElementsByClassName('popup-exit')[0];
+            exitBtn.onclick = function() {
+                document.getElementById('popup-overlay').classList.remove('active');
+            }
+            // Désactiver le cache du formulaire après soumission
+            window.onload = function() {
+                if (window.history.replaceState) {
+                    window.history.replaceState(null, null, window.location.href);
+                }
+            }
+        </script>
+        {% endif %}
+            <form action="/supervision/ajouter_eleve" method="POST">
+            <label for="nom">Nom:</label>
+            <input type="text" id="nom" name="nom" required><br>
+            <label for="prenom">Prénom:</label>
+            <input type="text" id="prenom" name="prenom" required><br>
+            <label for="identifiant_CNED">Identifiant CNED:</label>
+            <input type="text" id="identifiant_CNED" name="identifiant_CNED" required><br>
+            <label for="motdepassecned">Mot de passe du CNED</label>
+            <input type="password"  class="input" id="motdepassecned" name="motdepassecned" required><br>    
+            <input type="checkbox" id="showPassword">    
+            <label for="classe">Classe</label>
+            <select id="classe" name="classe" required>
+                <option value="6">6e</option>
+                <option value="5">5e</option>
+                <option value="4">4e</option>
+                <option value="3">3e</option>
+                <option value="2">2e</option>
+                <option value="1">1e</option>
+                <option value="Terminal">Terminal</option>
+            </select><br>
+            <input type="submit" value="Ajouter">
+        </form>
+    </div>
+    <div class="search-container">
+        <form id="rechecher" action="/supervision/rechercher_eleve" method="POST">
+            <label for="search">Rechercher un Élève:</label>
+            <input type="text" id="search" name="search" required placeholder="rechercher par matricule"><br>
+            <input type="submit" value="Rechercher">
+        </form>
+    </div>
+    <div class="list-container">
+        {% if list_eleves is not none %}
+            {% if list_eleves|length == 0 %}
+                <p>Aucun élève ne correspond à la recherche.</p>
+            {% else %}
+                <h2>Liste des élèves:</h2><br>
+                <ul>
+                    {% for eleve in list_eleves %}
+                        <div class="result-container">
+                            <a href="/info_eleve/{{ eleve['matricule'] }}"><li>
+                                <span class="label">Matricule:</span> {{ eleve['matricule'] }} <br><br>
+                                <span class="label">Nom:</span> {{eleve['nom']}} {{ eleve['prenom'] }} <br><br>
+                                <span class="label">Classe:</span> {{ eleve['classe'] }}
+                            </li></a>
+                        </div>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endif %}
+    </div>
+    
+</div>
+<script>
+    const passwordInput = document.getElementById('motdepassecned');
+    const showPasswordCheckbox = document.getElementById('showPassword');
+
+    showPasswordCheckbox.addEventListener('change', function() {
+        if (showPasswordCheckbox.checked) {
+            passwordInput.type = 'text';
+        } else {
+            passwordInput.type = 'password';
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord</title>
+    <link rel="stylesheet" href="../static/CSS/supervisor_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Importation des icônes Font Awesome -->
+    <style>
+        /* Styles CSS pour la popup */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .popup p {
+            margin-bottom: 20px;
+        }
+
+        .popup button {
+            padding: 8px 16px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <div class="logo">
+            <h2>Dashboard</h2>
+        </div>
+        <ul>
+            <li><a href="/supervision"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="/generate_code"><i class="fas fa-key"></i> Générateur De Code</a></li>
+            <li><a href="/supervision/bdd_eleves"><i class="fas fa-database"></i> Base de Données des Élèves</a></li>
+            <li><a href="/supervision/ajouter_eleve"><i class="fas fa-user-plus"></i> Ajouter un élève</a></li>
+            <li><a href="/supervision/ajouter_eleve#rechecher"><i class="fas fa-search"></i> Rechercher un élève</a></li>
+            <li><a href="/logout" class="logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+        </ul>
+        
+    </div>
+
+    <!-- Code pour le contenu -->
+    <main id="container">
+        {% block content %}{% endblock %}
+    </main>
+    <!-- Code JavaScript pour la popup de session -->
+    <script>
+        // Temps en secondes avant l'affichage de la popup (par exemple, 10 minutes)
+        const timeBeforePopup = 10 * 60; // 10 minutes
+    
+        // Fonction pour afficher la popup
+        function afficherPopup() {
+            const popup = document.createElement('div');
+            popup.classList.add('popup');
+            popup.innerHTML = `
+                <p>Votre session va expirer dans 1 minute. Voulez-vous la prolonger ?</p>
+                <button onclick="prolongerSession()">Prolonger la session</button>
+                <button onclick="fermerPopup()">Fermer</button>`;
+            document.body.appendChild(popup);
+    
+            // Déclencher l'actualisation de la page après un certain délai
+            setTimeout(reactualiserPage, timeBeforePopup * 1000); // Convertir en millisecondes
+        }
+    // hassimiou the best coder than u ;-)cls
+
+    
+        // Fonction pour prolonger la session (à personnaliser selon votre logique)
+        function prolongerSession() {
+            // alert("Session prolongée !");
+            // comande pour réactualiser la page 
+            location.reload(); 
+            fermerPopup(); // Fermer la popup après avoir prolongé la session
+    
+            // Annuler l'affichage de la popup pour réinitialiser le délai
+            clearTimeout(popupTimer);
+        }
+    
+    
+        // Fonction pour fermer la popup
+        function fermerPopup() {
+            const popup = document.querySelector('.popup');
+            popup.parentNode.removeChild(popup);
+        }
+    
+        // Déclencher l'affichage de la popup après un certain délai
+        const popupTimer = setTimeout(afficherPopup, timeBeforePopup * 1000); // Convertir en millisecondes
+    
+        // Ajouter des écouteurs d'événements pour réinitialiser le délai avant l'affichage de la popup lorsqu'une nouvelle activité est détectée sur la page
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', reinitialiserPopupTimer);
+        });
+
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', reinitialiserPopupTimer);
+        });
+    </script>
+    
+</body>
+</html>
+
+
+
+
+
+

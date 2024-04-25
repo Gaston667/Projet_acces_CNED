@@ -33,30 +33,31 @@
                             </div>
                             <div class="input-field">
                                 <input type="password" class="input" id="password" name="password" required>
+                                <input type="checkbox" id="showPassword">
                                 <label for="password">Mot de passe </label>
+                                <!-- <label for="showPassword" class="show-password-label">Afficher le  passe</label> -->
                             </div>
                             
-                            <div class="select">
-                                <label for="role">Rôle:</label>
-                                <span class=""><ion-icon name="filter-outline"></ion-icon></span>
-                                <select id="role" name="role" required>
-                                    <option value="eleve">Élève</option>
-                                    <option value="enseignant">Enseignant</option>
-                                    <option value="direction">Direction</option>
-                                </select>
-                            </div>
                             <div class="input-field">
                                 <input type="submit" class="submit" value="Connexion">
                             </div>
-                            <div class="forget">
-                                <span>Forgot password ? <a href="#"> Clique here </a></span> 
-                            </div>
-
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>    
+    <script>
+        const passwordInput = document.getElementById('password');
+        const showPasswordCheckbox = document.getElementById('showPassword');
+
+        showPasswordCheckbox.addEventListener('change', function() {
+            if (showPasswordCheckbox.checked) {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        });
+    </script>
 </body>
 </html> 

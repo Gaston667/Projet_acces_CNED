@@ -5,33 +5,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../static/CSS/login.css">
         <title>Page de Connexion</title>
-        <style>
-            
-        </style>
+        <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
     </head>
     <body>
 
         <div class="container">
             <div class="login-box">
                 <h2>Bonjour M.{{ session['user']['nom'] }}</h2>
-                <form method="POST" action="/login">
+                <form id="form" method="POST" action="/logincode">
                     <div class="input-box">
                         <input type="text" id="code" name="code" required>
                         <label for="code">Code d'accès</label>
-                    </div>            
+                    </div>     
+                    <div id="code" data-myvalue="{{ code }}"></div>       
                     <!-- Affichage du message d'erreur, s'il y en a un -->
                     <div class="message-error">
                         {% if message %}
-                        <p class="error-message">Error {{ message }}</p>
+                        <p class="error-message">Warning: {{ message }}</p>
                         {% endif %}                    
                     </div>
                     <!-- Bouton de logout -->
-                    <button type="submit" class="btn">Se Connecter au CNED</button>
+            
+                <button type="submit" class="btn">Se Connecter au CNED</button>
                     <div class="logout-btn">
                         <a href="/logout" >Se Déconnecter</a>
                     </div>
                 </form>
-    
+
             </div>
             <span style="--i:0;"></span>
             <span style="--i:1;"></span>
@@ -85,5 +85,61 @@
             <span style="--i:49;"></span>
         </div>
 
+        <script>
+            // Fonction pour lancer Pyodide
+            
+            async function main() {
+                const pyodide = await loadPyodide();
+
+                var identifiant_CNED = "{{session['user']['identifiant_CNED']}}";
+                var mot_de_passe_CNED = "{{session['user']['mot_de_passe_CNED']}}";
+                var code = "{{session['user']['code']['generated_code']}}";
+
+                const conversionform = document.getElementById("form");
+                const code_input = conversionform.querySelector('input');
+
+                if (code != "") {
+                    
+                    pyodide.runPython(`
+                        identifiant_CNED = "${identifiant_CNED}"
+                        mot_de_passe_CNED = "${mot_de_passe_CNED}"
+                        code = "${code}"
+                        print(f"Python: identifiant_CNED = {identifiant_CNED} mot_de_passe_CNED = {mot_de_passe_CNED}, code = {code}")
+
+                        #Importer la classe WebDriver de Selenium
+                        from selenium import webdriver
+                        import os 
+
+                        #Créer une instance du pilote Chrome
+                        driver = webdriver.Chrome()
+                        #url vers la page de connexion du CNED
+                        url = "https://sts.cned.fr/adfs/ls/?wtrealm=https%3A%2F%2Fespaceinscrit.cned.fr&wctx=WsFedOwinState%3D1kJs2CMiqSTWgXUULhuPNagdvV-hz-c0o_YiPEvrc0TVYGnFCjzdXTjK607t2ugcX3LlaTG5zwr1FJY85ayG05QkW5XnQqmD5haiXJCmkIXf7L6jrYh0Hd1zJO5CVObkEVFqF0xYunS-fZboGWE2SyIv_373XDJ2P4CAoqKdSx4&wa=wsignin1.0"
+                        #Ouvrir la page de connexion CNED
+                        driver.get(url)
+
+                        # Remplir les champs du formulaire de connexion CNED avec les informations de l'utilisateur
+                        identifiant_input = driver.find_element('name', 'UserName')
+                        identifiant_input.send_keys(identifiant_CNED)
+                        mot_de_passe_input = driver.find_element('name','Password')
+                        mot_de_passe_input.send_keys(mot_de_passe_CNED)
+
+                        # Soumettre le formulaire de connexion CNED
+                        submit_button = driver.find_element('id','submitButton')
+                        submit_button.click()
+
+                        #Récupérer le processus WebDriver
+                        webdriver_process = driver.service.process
+                        #Obtenez le pid du processus du pilote WebDriver
+                        webdriver_process_pid = webdriver_process.pid
+                        #Tuer le processus WebDriver
+                        os.system("taskkill /f /pid " + webdriver_process_pid)
+                    `);
+                }else{
+                    console.log('code est vide')
+                }
+            }
+            main();
+
+        </script>
     </body>
 </html>

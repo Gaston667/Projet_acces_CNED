@@ -3,3 +3,5 @@ enve/
 database/
 app/__pycache__/
 app/models.py
+chromedriver_win32/
+edgedriver_win64/

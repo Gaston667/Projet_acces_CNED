@@ -1,65 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% if title is defined %}{{ title }}{% else %}Blaise Pascal{% endif %}</title>
-        <link rel="stylesheet" href="../static/CSS/supervisor_dashboard.css">
-        <!-- Font awesome cdn link -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    </head>
-    <body>
-        <div class="sidebar">
-            <div class="logo"></div>
-            <ul class="menu">
-                <li class="active">
-                    <a href="#" >
-                        <i class= "fas fa-tachometer-alt"></i>
-                        <span>Supervision</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class= "fas fa-sign-out-alt"></i>
-                        <span>Deconexion</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="main--content">
-            <div class="header--wrapper">
-                <div class="header--title">
-                    <span>Primary</span>
-                    <h2>Tableau de bord</h2>
-                </div>
-                <div class="user--info">
-                    <div class="search--box">
-                        <i class="fasolid fa-search"></i>
-                        <input type="text" placeholder="Search">
-                    </div>
-                    <img src="../static/img/blaise pascal.jpg" alt="">
-                </div>
-            </div>
-            <div class="card--container">
-                <h3 class="main--title">Fonctionalité</h3>
-                <div class="card--wrapper">
-                    <div class="payment--card">
-                        <div class="card--header">
-                            <div class="amount">
-                                <span class="title">
-                                    Nombre d'eleve
-                                </span>
-                                <span class="amount--value">
-                                    555
-                                </span>
-                            </div>
-                            <i class="fas fa-dollar-sign icon"></i>
-                        </div>
-                        <span class="card--detail">***** ***** **** 7875</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    #content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .box {
+        background-color: #FFF;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        opacity: 0; /* Initiallement invisible */
+        transform: translateY(20px); /* Décalage vers le bas */
+        transition: opacity 0.5s ease, transform 0.5s ease; /* Transition fluide */
+    }
+    .box h2 {
+        margin-top: 0;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #eeebeb;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fonction pour animer l'apparition des boîtes
+        function animateBoxes() {
+            var boxes = document.querySelectorAll('.box');
+            boxes.forEach(function(box) {
+                box.style.opacity = 1;
+                box.style.transform = 'translateY(0)';
+            });
+        }
+
+        // Appeler la fonction d'animation après un court délai
+        setTimeout(animateBoxes, 230);
+    });
+</script>
+<div id="content">
+    <h1>Bienvenue sur votre tableau de bord</h1>
+    
+    <!-- Boîte pour afficher le nombre d'élèves -->
+    <div class="box" id="student-count-box">
+        <h2>Nombre d'élèves</h2>
+        <p>Nombre total d'élèves : <span id="student-count">X</span></p>
+    </div>
+
+    <!-- Boîte pour afficher l'historique de connexion -->
+    <div class="box" id="connection-history-box">
+        <h2>Historique de Connexion</h2>
+        <table id="connection-history-table">
+            <thead>
+                <tr>
+                    <th>Nom de l'élève</th>
+                    <th>Date de connexion</th>
+                    <th>Code utilisé</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in connection_history %}
+                <tr>
+                    <td>{{ entry['nom_eleve'] }}</td>
+                    <td>{{ entry['date_connexion'] }} {{ entry['heure_connexion'] }}</td>
+                    <td>{{ entry['code_utilise'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
 
