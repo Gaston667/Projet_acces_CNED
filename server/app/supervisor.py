@@ -30,6 +30,7 @@ def verifier_session():
 # Page de supervision
 @supervisor_blueprint.route('/supervision')
 def supervision():
+    print(session)
     if 'user' not in session:
         session.clear()
         return redirect(url_for('auth.loginun')) 

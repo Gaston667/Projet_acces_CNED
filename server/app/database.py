@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 class DatabaseManager:
     print("Connexion avec la base de données...")
     def __init__(self):
-        self.db_name = './database/database.db'
+        self.db_name = 'server/database/database.db'
         self.conn = None
         self.cursor = None  # Initialisez le curseur ici
 
@@ -207,12 +207,12 @@ class DatabaseManager:
 
        
 bdd = DatabaseManager()
-with bdd:
-    # Creation des table
-    # bdd.create_tables()
-    # bdd.add_student('1234', 'ok', 'john.doe', 'ok', 'John', 'Doe', '5e')
-    # bdd.add_student('5678', 'ok', 'jane.doe', 'ok', 'Jane', 'Doe', '5e')
-    # bdd.update_student_password('5678', 'ok')
-    # bdd.delete_student('1234')
-    # bdd.delete_student('5678')
-    pass
+# with bdd:
+#     # Creation des table
+#     # bdd.create_tables()
+#     # bdd.add_student('1234', 'ok', 'john.doe', 'ok', 'John', 'Doe', '5e')
+#     # bdd.add_student('5678', 'ok', 'jane.doe', 'ok', 'Jane', 'Doe', '5e')
+#     # bdd.update_student_password('5678', 'ok')
+#     # bdd.delete_student('1234')
+#     # bdd.delete_student('5678')
+#     pass

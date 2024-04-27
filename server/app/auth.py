@@ -68,9 +68,9 @@ def login():
                 'prenom': eleve['prenom'],
                 'classe': eleve['classe'],
             }
-            return jsonify({'message': 'Connexion réussie'}), 200
+            return jsonify({'message': 'Connexion réussie', 'session_data': session}), 200
         else:
-            return jsonify({'error': 'Identifiants incorrects'}), 401
+            return jsonify({'message': 'Identifiants incorrects'}), 401
         
 # Ajouter cette méthode pour déconnecter l'utilisateur et supprimer la session
 @auth_blueprint.route('/logout')

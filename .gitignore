@@ -1,7 +1,7 @@
 enve/
 .vscode/
 database/
-app/__pycache__/
+/server/app/__pycache__/
 app/models.py
-chromedriver_win32/
-edgedriver_win64/
+# chromedriver_win32/
+# edgedriver_win64/
