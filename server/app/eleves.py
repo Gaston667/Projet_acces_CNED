@@ -42,7 +42,7 @@ def verifcode():
         if current_time < expiration_date:
             # Si le code est valide, enregistrer le code dans la session de l'utilisateur
             session['user']['code'] = code_info[0]
-            return jsonify({'message': 'Connexion réussie'}), 200
+            return jsonify({'message': 'CONNEXION EN COURS'}), 200
         else:
             return jsonify({'message': 'Code invalide. Veuillez réessayer.'}), 400
     else:

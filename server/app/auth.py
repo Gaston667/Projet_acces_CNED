@@ -54,8 +54,10 @@ def login():
     if not data or 'matricule' not in data or 'password' not in data:
         return jsonify({'error': 'Données manquantes'}), 400
     
-    matricule = data['matricule']
+    matricule = gerer_casse(data['matricule'], 'majuscules')
     password = data['password']
+    
+
 
     with db_manager:
         eleve = db_manager.get_student_by_matricule(matricule=matricule)

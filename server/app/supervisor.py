@@ -12,7 +12,7 @@ import os
 supervisor_blueprint = Blueprint('supervisor', __name__)
 db_manager = DatabaseManager()
 
-SESSION_TIMEOUT = 10 * 60
+SESSION_TIMEOUT = 60 * 60
 
 
 # Fonction de vérification de la session
@@ -108,6 +108,8 @@ def ajout_eleve():
 def recherche_eleve():
     if 'user' not in session:
         return redirect(url_for('auth.loginun')) 
+    
+    list_eleves = []  # Initialiser list_eleves à une liste vide par défaut 
      
     if request.method == 'POST':
         donne = request.form.get('search')
@@ -146,7 +148,7 @@ def suppression_eleve():
     # Supprimer l'élève avec le matricule donné
     with db_manager:
         db_manager.delete_student(matricule)
-    return redirect(url_for('routes.ajout_eleve'))
+    return redirect(url_for('supervisor.ajout_eleve'))
 
 # Affichage des eleves
 @supervisor_blueprint.route("/supervision/bdd_eleves")
