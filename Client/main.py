@@ -3,7 +3,7 @@ from tkinter import ttk, Toplevel
 import requests, time, os
 from tkinter import messagebox
 from selenium import webdriver
-
+from config import url
 class LoginWindow:
     def __init__(self):
         self.session_data = {}  # Ajout de l'attribut session_data initialisé à un dictionnaire vide
@@ -46,8 +46,9 @@ class LoginWindow:
         matricule = self.matricule_entry.get()
         password = self.password_entry.get() 
         
-        response = requests.post('http://127.0.0.1:5000/login', json={'matricule': matricule, 'password': password})
+        response = requests.post(url+'/login', json={'matricule': matricule, 'password': password})
         response_json = response.json()
+        
         
         if response.status_code == 200:
             messagebox.showinfo("Succès", response_json['message'])
