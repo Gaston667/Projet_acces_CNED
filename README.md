@@ -1,5 +1,8 @@
 Bien sûr ! Voici un résumé de notre avancement aujourd'hui :
+**Résumé de l'avancement :**
 
-**Nouvelle objectif :**
+- **Version :** V1
 
-Resoudre le  retour au niveau '/supervision/rechercher_eleve'
+- **Nouvel objectif :** Résoudre le retour au niveau '/supervision/rechercher_eleve'.
+
+**Actions à entreprendre :**
