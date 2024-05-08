@@ -46,7 +46,7 @@ class LoginWindow:
         matricule = self.matricule_entry.get()
         password = self.password_entry.get() 
         
-        response = requests.post(url+'/login', json={'matricule': matricule, 'password': password})
+        response = requests.post(f'{url}/login', json={'matricule': matricule, 'password': password})
         response_json = response.json()
         
         
@@ -103,7 +103,7 @@ class CodeEntryWindow:
     def submit_code(self):
         code = self.entry_code.get()
         
-        response = requests.post('http://127.0.0.1:5000/verifcode', json={'code': code, 'session_data': self.session_data})
+        response = requests.post(f'{url}/verifcode', json={'code': code, 'session_data': self.session_data})
         response_json = response.json()
         if response.status_code == 200:
             messagebox.showinfo("Succès", response_json['message'] + "\n VEUILLEZ ATTENDRE L'OUVERTURE DE LA PAGE CNED....")
