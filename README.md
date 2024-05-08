@@ -1,4 +1,3 @@
-Bien sûr ! Voici un résumé de notre avancement aujourd'hui :
 **Résumé de l'avancement :**
 
 - **Version :** V1
